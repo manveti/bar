@@ -15,10 +15,9 @@
 
 #mainPanes {
     position: relative;
-    left: 3px;
+    margin-left: 3px;
     flex-grow: 1;
     border: 1px solid;
-    padding: 1px;
 }
 
 #statBlock {
@@ -80,6 +79,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 1px;
 }
 
 .splitPane {
@@ -87,6 +87,6 @@
     flex-direction: column;
 }
 
-.splitPaneTop {
+.splitPanePart {
     flex-grow: 1;
 }
