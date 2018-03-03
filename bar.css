@@ -79,7 +79,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 1px;
 }
 
 .splitPane {
@@ -87,6 +86,31 @@
     flex-direction: column;
 }
 
-.splitPanePart {
+.splitPaneTop {
+    flex: 1 1 50%;
+    padding: 1px;
+    max-height: 50%;
+}
+
+.splitPaneBottom {
+    flex: 1 1 50%;
+    display: flex;
+    max-height: 50%;
+}
+
+.splitPaneBottomPart {
+    position: relative;
+    margin: -1px;
+    flex: 1 1 50%;
+    border-width: 1px 1px 1px 0px;
+    border-style: solid;
+    padding: 1px 1px 1px 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.descBox {
+    width: 100%;
     flex-grow: 1;
+    overflow: auto;
 }

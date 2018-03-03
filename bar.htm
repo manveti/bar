@@ -10,8 +10,8 @@
 	<div id="statBlock">
 	    Money: $<span id="moneyBox">0</span><br>
 	    <div class="progressBar" style="height: 20px; width: 200px" title="$0 / $10000">
-		<div class="progressBarFg" style="width: 0%"></div>
-		<div class="progressBarText" style="line-height: 20px">$0 / $10,000</div>
+		<div id="moneyProgBar" class="progressBarFg" style="width: 0%"></div>
+		<div id="moneyProgText" class="progressBarText" style="line-height: 20px">$0 / $10,000</div>
 	    </div>
 	    Income: $<span id="incomeBox">0</span>/sec
 	</div>
@@ -31,33 +31,65 @@
 	    //customers, other bar pane stuff
 	</div>
 	<div id="stockPane" class="mainPane splitPane" style="visibility: hidden">
-	    <div class="splitPanePart">
+	    <div class="splitPaneTop">
 		left: product tree<br>
 		right: price, owned, auto-stock checkbox (if available), flavor profile, description
 	    </div>
-	    <div class="splitPanePart">
-		bottom: current distributor, progress to next distributor or description and sign-up button
+	    <div class="splitPaneBottom">
+		<div class="splitPaneBottomPart">
+		    <div>
+			Current Distributor:
+			<span id="curDistBox">None</span>
+		    </div>
+		    <div id="curDistDescBox" class="descBox">
+			Distributors supply you with alcohol and other drink ingredients.
+		    </div>
+		</div>
+		<div class="splitPaneBottomPart">
+		    <div>
+			Next Distributor:
+			<span id="nextDistBox">Unknown</span>
+		    </div>
+		    <div class="progressBar" style="height: 7px; left: 0; right: 2px">
+			<div id="distProgBar" class="progressBarFg" style="width: 0%"></div>
+		    </div>
+		    <div id="nextDistDescBox" class="descBox">
+			Sell more drinks to attract the attention of a better distributor.
+		    </div>
+		</div>
 	    </div>
 	</div>
 	<div id="drinksPane" class="mainPane splitPane" style="visibility: hidden">
-	    <div class="splitPanePart">
+	    <div class="splitPaneTop">
 		left: drinks tree, group by (base spirit, style, source)<br>
 		right: recipe, cost, flavor profile, description
 	    </div>
-	    <div class="splitPanePart">
-		bottom: owned cocktail references, progress bar to next cocktail reference
+	    <div class="splitPaneBottom">
+		<div class="splitPaneBottomPart">
+		    owned cocktail references
+		</div>
+		<div class="splitPaneBottomPart">
+		    progress bar to next cocktail reference<br>
+		    if progress full: description of next reference and purchase button
+		</div>
 	    </div>
 	</div>
 	<div id="staffPane" class="mainPane" style="visibility: hidden">
 	    //bartenders, stocker(s)
 	</div>
 	<div id="locationsPane" class="mainPane splitPane" style="visibility: hidden">
-	    <div class="splitPanePart">
+	    <div class="splitPaneTop">
 		left: venue improvements tree<br>
 		right: improvement price, owned / max, description
 	    </div>
-	    <div class="splitPanePart>
-		bottom: current venue, progress to next venue or description and purchase button
+	    <div class="splitPaneBottom">
+		<div class="splitPaneBottomPart">
+		    current venue
+		</div>
+		<div class="splitPaneBottomPart">
+		    progress to next venue<br>
+		    if progress full: description of next venue and purchase button
+		</div>
 	    </div>
 	</div>
 	<div id="perksPane" class="mainPane" style="visibility: hidden">
