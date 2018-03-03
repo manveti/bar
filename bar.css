@@ -1,0 +1,92 @@
+#mainFrame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+}
+
+#hudBar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#mainPanes {
+    position: relative;
+    left: 3px;
+    flex-grow: 1;
+    border: 1px solid;
+    padding: 1px;
+}
+
+#statBlock {
+    width: 100%;
+    border: 1px solid;
+    padding: 1px;
+}
+
+#navBar {
+    flex-grow: 1;
+    width: 100%;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    padding: 1px;
+}
+
+.progressBar {
+    border: 1px solid;
+    position: relative;
+}
+
+.progressBarFg {
+    background: #808080;
+    height: 100%;
+}
+
+.progressBarText {
+    background: rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.button {
+    border: 2px outset;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.button:active {
+    border-style: inset;
+}
+
+.button:hover {
+    background: #C0C0C0;
+}
+
+.buttonSelected {
+    background: #D0D0D0;
+}
+
+.mainPane {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.splitPane {
+    display: flex;
+    flex-direction: column;
+}
+
+.splitPaneTop {
+    flex-grow: 1;
+}

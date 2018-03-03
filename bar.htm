@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Fill the Bars</title>
+<link rel="stylesheet" type="text/css" href="bar.css">
+<script src="bar.js"></script>
+</head>
+<body>
+<div id="mainFrame">
+    <div id="hudBar">
+	<div id="statBlock">
+	    Money: $<span id="moneyBox">0</span><br>
+	    <div class="progressBar" style="height: 20px; width: 200px" title="$0 / $10000">
+		<div class="progressBarFg" style="width: 0%"></div>
+		<div class="progressBarText" style="line-height: 20px">$0 / $10,000</div>
+	    </div>
+	    Income: $<span id="incomeBox">0</span>/sec
+	</div>
+	<div id="navBar">
+	    <div id="barPaneBut" class="button buttonSelected" onClick="showPane('bar')">Bar</div>
+	    <div id="stockPaneBut" class="button" onClick="showPane('stock')">Stock</div>
+	    <div id="drinksPaneBut" class="button" onClick="showPane('drinks')">Drinks</div>
+	    <div id="staffPaneBut" class="button" onClick="showPane('staff')">Staff</div>
+	    <div id="locationsPaneBut" class="button" onClick="showPane('locations')">Locations</div>
+	    <div id="perksPaneBut" class="button" onClick="showPane('perks')">Perks</div>
+	    <div id="achievementsPaneBut" class="button" onClick="showPane('achievements')">Achievements</div>
+	    <div id="optionsPaneBut" class="button" onClick="showPane('options')">Options</div>
+	</div>
+    </div>
+    <div id="mainPanes">
+	<div id="barPane" class="mainPane">
+	    //customers, other bar pane stuff
+	</div>
+	<div id="stockPane" class="mainPane splitPane" style="visibility: hidden">
+	    <div class="splitPaneTop">
+		left: product tree<br>
+		right: price, owned, auto-stock checkbox (if available), flavor profile, description
+	    </div>
+	    <div>
+		bottom: current distributor, progress to next distributor or description and sign-up button
+	    </div>
+	</div>
+	<div id="drinksPane" class="mainPane splitPane" style="visibility: hidden">
+	    <div class="splitPaneTop">
+		left: drinks tree, group by (base spirit, style, source)<br>
+		right: recipe, cost, flavor profile, description
+	    </div>
+	    <div>
+		bottom: owned cocktail references, progress bar to next cocktail reference
+	    </div>
+	</div>
+	<div id="staffPane" class="mainPane" style="visibility: hidden">
+	    //bartenders, stocker(s)
+	</div>
+	<div id="locationsPane" class="mainPane splitPane" style="visibility: hidden">
+	    <div class="splitPaneTop">
+		left: venue improvements tree<br>
+		right: improvement price, owned / max, description
+	    </div>
+	    <div>
+		bottom: current venue, progress to next venue or description and purchase button
+	    </div>
+	</div>
+	<div id="perksPane" class="mainPane" style="visibility: hidden">
+	    //current perks, available perks
+	</div>
+	<div id="achievementsPane" class="mainPane" style="visibility: hidden">
+	    //achievements
+	</div>
+	<div id="optionsPane" class="mainPane" style="visibility: hidden">
+	    //options
+	</div>
+    </div>
+</div>
+</body>
+</html>
