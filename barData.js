@@ -233,21 +233,21 @@ for (var i = 0; i < INGREDIENTS_SORTED.length; i++){
 		INGREDIENTS[spirit]['abv']['max'] = INGREDIENTS[spirit][subtype]['abv']['max'];
 	    }
 	    INGREDIENTS[spirit][subtype]['abv']['avg'] /= node.brands.length;
-	    if (INGREDIENTS[spirit][subtype]['abv']['min'] > 100){ INGREDIENTS[spirit][subtype]['abv']['min'] = 0; }
 	    for (var fa = 0; fa < FLAVORS.length; fa++){
 		INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] += INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]];
 		INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] /= node.brands.length;
 	    }
 	    spiritBrands += node.brands.length;
 	}
+	if (INGREDIENTS[spirit][subtype]['abv']['min'] > 100){ INGREDIENTS[spirit][subtype]['abv']['min'] = 0; }
     }
     if (spiritBrands > 0){
 	INGREDIENTS[spirit]['abv']['avg'] /= spiritBrands;
-	if (INGREDIENTS[spirit]['abv']['min'] > 100){ INGREDIENTS[spirit]['abv']['min'] = 0; }
 	for (var fa = 0; fa < FLAVORS.length; fa++){
 	    INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] /= spiritBrands;
 	}
     }
+    if (INGREDIENTS[spirit]['abv']['min'] > 100){ INGREDIENTS[spirit]['abv']['min'] = 0; }
 }
 
 var CITIES = [
