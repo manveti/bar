@@ -180,6 +180,7 @@ function populateIngredientDetails(){
 /////
 //
 	    getEl('ingredientPriceBox').innerHTML = "???"; //curItem.price * distributor factor
+	    getEl('ingredientAbvBox').innerHTML = `${curItem.abv}%`;
 	    getEl('ingredientOwnedBox').innerHTML = "???"; //Math.floor(how many bottles owned)
 	    getEl('ingredientOpenBox').style.visibility = "inherit"; //hidden if owned is integer
 	    getEl('ingredientOpenBar').style.width="100%"; //fractional part of owned
@@ -191,6 +192,11 @@ function populateIngredientDetails(){
 	}
 	else{
 	    getEl('ingredientPriceBox').innerHTML = "n/a";
+	    var abvText = `${curItem.abv.avg}%`;
+	    if (curItem.abv.min != curItem.abv.max){
+		abvText += ` (${curItem.abv.min}% - ${curItem.abv.max}%)`;
+	    }
+	    getEl('ingredientAbvBox').innerHTML = abvText;
 	    getEl('ingredientOwnedBox').innerHTML = "n/a";
 	    getEl('ingredientOpenBox').style.visibility = "hidden";
 	    getEl('ingredientOpenBar').style.width = "100%";
@@ -211,6 +217,7 @@ function populateIngredientDetails(){
     else{
 	getEl('ingredientNameBox').innerHTML = "Water";
 	getEl('ingredientPriceBox').innerHTML = "0";
+	getEl('ingredientAbvBox').innerHTML = "0%";
 	getEl('ingredientOwnedBox').innerHTML = "As much as you want";
 	getEl('ingredientOpenBox').style.visibility = "hidden";
 	getEl('ingredientOpenBar').style.width = "100%";

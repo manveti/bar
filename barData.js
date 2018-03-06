@@ -193,37 +193,57 @@ var INGREDIENTS_SORTED = [
 for (var i = 0; i < INGREDIENTS_SORTED.length; i++){
     var spirit = INGREDIENTS_SORTED[i].name;
     var spiritBrands = 0;
+    INGREDIENTS[spirit]['abv'] = {'avg': 0, 'min': 999, 'max': 0};
     INGREDIENTS[spirit]['flavor'] = {};
     for (var fa = 0; fa < FLAVORS.length; fa++){
 	INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] = 0;
     }
     for (var j = 0; j < INGREDIENTS_SORTED[i].types.length; j++){
 	var subtype = INGREDIENTS_SORTED[i].types[j];
+	INGREDIENTS[spirit][subtype]['abv'] = {'avg': 0, 'min': 999, 'max': 0};
 	INGREDIENTS[spirit][subtype]['flavor'] = {}
 	for (var fa = 0; fa < FLAVORS.length; fa++){
 	    INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] = 0;
 	}
 	var node = {'name': subtype, 'brands': []};
 	for (var name in INGREDIENTS[spirit][subtype]){
-	    if ((name == "description") || (name == "flavor")){ continue; }
+	    if ((name == "description") || (name == "flavor") || (name == "abv")){ continue; }
 	    if (!INGREDIENTS[spirit][subtype].hasOwnProperty(name)){ continue; }
 	    node.brands.push(name);
+	    INGREDIENTS[spirit][subtype]['abv']['avg'] += INGREDIENTS[spirit][subtype][name]['abv'];
+	    if (INGREDIENTS[spirit][subtype][name]['abv'] < INGREDIENTS[spirit][subtype]['abv']['min']){
+		INGREDIENTS[spirit][subtype]['abv']['min'] = INGREDIENTS[spirit][subtype][name]['abv'];
+	    }
+	    if (INGREDIENTS[spirit][subtype][name]['abv'] > INGREDIENTS[spirit][subtype]['abv']['max']){
+		INGREDIENTS[spirit][subtype]['abv']['max'] = INGREDIENTS[spirit][subtype][name]['abv'];
+	    }
 	    for (var fa = 0; fa < FLAVORS.length; fa++){
 		var amt = INGREDIENTS[spirit][subtype][name]['flavor'][FLAVORS[fa]];
-		INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] += amt;
 		INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] += amt;
 	    }
 	}
 	node.brands.sort((x, y) => INGREDIENTS[spirit][subtype][x].price - INGREDIENTS[spirit][subtype][y].price);
 	INGREDIENTS_SORTED[i].types[j] = node;
 	if (node.brands.length > 0){
+	    INGREDIENTS[spirit]['abv']['avg'] += INGREDIENTS[spirit][subtype]['abv']['avg'];
+	    if (INGREDIENTS[spirit][subtype]['abv']['min'] < INGREDIENTS[spirit]['abv']['min']){
+		INGREDIENTS[spirit]['abv']['min'] = INGREDIENTS[spirit][subtype]['abv']['min'];
+	    }
+	    if (INGREDIENTS[spirit][subtype]['abv']['max'] > INGREDIENTS[spirit]['abv']['max']){
+		INGREDIENTS[spirit]['abv']['max'] = INGREDIENTS[spirit][subtype]['abv']['max'];
+	    }
+	    INGREDIENTS[spirit][subtype]['abv']['avg'] /= node.brands.length;
+	    if (INGREDIENTS[spirit][subtype]['abv']['min'] > 100){ INGREDIENTS[spirit][subtype]['abv']['min'] = 0; }
 	    for (var fa = 0; fa < FLAVORS.length; fa++){
+		INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] += INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]];
 		INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] /= node.brands.length;
 	    }
 	    spiritBrands += node.brands.length;
 	}
     }
     if (spiritBrands > 0){
+	INGREDIENTS[spirit]['abv']['avg'] /= spiritBrands;
+	if (INGREDIENTS[spirit]['abv']['min'] > 100){ INGREDIENTS[spirit]['abv']['min'] = 0; }
 	for (var fa = 0; fa < FLAVORS.length; fa++){
 	    INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] /= spiritBrands;
 	}
@@ -241,7 +261,7 @@ var CITIES = [
 		'price': 0,
 		'factor': 2,
 		'description': "Your uncle Steve will run to the corner store and buy a few bottles for you, " +
-				"but you'll have to give him some gas money for the trip",
+				"but you'll have to give him some gas money for the trip.",
 		'stock': {
 		    "Gin": {
 			"London Dry": [
