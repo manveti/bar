@@ -1,39 +1,3 @@
-#mainFrame {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-}
-
-#hudBar {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#mainPanes {
-    position: relative;
-    margin-left: 3px;
-    flex-grow: 1;
-    border: 1px solid;
-}
-
-#statBlock {
-    width: 100%;
-    border: 1px solid;
-    padding: 1px;
-}
-
-#navBar {
-    flex-grow: 1;
-    width: 100%;
-    border-width: 0px 1px 1px 1px;
-    border-style: solid;
-    padding: 1px;
-}
-
 .progressBar {
     border: 1px solid;
     position: relative;
@@ -73,6 +37,71 @@
     background: #D0D0D0;
 }
 
+.descBox {
+    width: 100%;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.treeBox {
+    width: 100%;
+    flex-grow: 1;
+    overflow: auto;
+    border-width: 1px 0px;
+    border-style: solid;
+    margin: 0px 0px -2px 0px;
+}
+
+.flavorProfile {
+    border: 1px solid;
+    font-size: 60%;
+}
+
+.flavorProfile td {
+    width: 40px;
+}
+
+.flavorBar {
+    height: 7px;
+    background: #808080;
+}
+
+#mainFrame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+}
+
+#hudBar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#statBlock {
+    width: 100%;
+    border: 1px solid;
+    padding: 1px;
+}
+
+#navBar {
+    flex-grow: 1;
+    width: 100%;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    padding: 1px;
+}
+
+#mainPanes {
+    position: relative;
+    margin-left: 3px;
+    flex-grow: 1;
+    border: 1px solid;
+}
+
 .mainPane {
     position: absolute;
     top: 0;
@@ -86,19 +115,46 @@
     flex-direction: column;
 }
 
-.splitPaneTop {
-    flex: 1 1 50%;
-    padding: 1px;
-    max-height: 50%;
-}
-
-.splitPaneBottom {
+.splitPaneItemsRegion {
     flex: 1 1 50%;
     display: flex;
     max-height: 50%;
 }
 
-.splitPaneBottomPart {
+.splitPaneItemsTreeRegion {
+    border: 1px solid;
+    margin: -1px -1px 0px -1px;
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+}
+
+.splitPaneItemInfoRegion {
+    border: 1px solid;
+    margin: -1px -1px 0px 0px;
+    padding: 1px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.splitPaneItemDetailsRegion {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.splitPaneItemTextDetails {
+    flex-grow: 1;
+}
+
+.splitPaneUnlocksRegion {
+    flex: 1 1 50%;
+    display: flex;
+    max-height: 50%;
+}
+
+.splitPaneUnlocksPart {
     position: relative;
     margin: -1px;
     flex: 1 1 50%;
@@ -109,8 +165,8 @@
     flex-direction: column;
 }
 
-.descBox {
-    width: 100%;
-    flex-grow: 1;
-    overflow: auto;
+.splitBottomProgressBar {
+    height: 7px;
+    left: 0;
+    right: 2px;
 }

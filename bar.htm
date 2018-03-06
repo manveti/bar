@@ -2,14 +2,15 @@
 <head>
 <title>Fill the Bars</title>
 <link rel="stylesheet" type="text/css" href="bar.css">
+<script src="barData.js"></script>
 <script src="bar.js"></script>
 </head>
-<body>
+<body onLoad="handleLoad()">
 <div id="mainFrame">
     <div id="hudBar">
 	<div id="statBlock">
 	    Money: $<span id="moneyBox">0</span><br>
-	    <div class="progressBar" style="height: 20px; width: 200px" title="$0 / $10000">
+	    <div class="progressBar" style="height: 20px; width: 200px">
 		<div id="moneyProgBar" class="progressBarFg" style="width: 0%"></div>
 		<div id="moneyProgText" class="progressBarText" style="line-height: 20px">$0 / $10,000</div>
 	    </div>
@@ -31,12 +32,75 @@
 	    //customers, other bar pane stuff
 	</div>
 	<div id="stockPane" class="mainPane splitPane" style="visibility: hidden">
-	    <div class="splitPaneTop">
-		left: product tree<br>
-		right: price, owned, auto-stock checkbox (if available), flavor profile, description
+	    <div class="splitPaneItemsRegion">
+		<div class="splitPaneItemsTreeRegion">
+		    Ingredients:
+		    <div id="ingredientsTree" class="treeBox"></div>
+		</div>
+		<div class="splitPaneItemInfoRegion">
+		    <div class="splitPaneItemDetailsRegion">
+			<span class="splitPaneItemTextDetails">
+			    name, price, owned, auto-stock checkbox (if available)
+			</span>
+			<div>
+			    Flavor Profile
+			    <table class="flavorProfile" cols="2">
+				<tr>
+				    <td align="right" valign="center">Sweet</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientSweetBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Sour</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientSourBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Bitter</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientBitterBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Savory</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientSavoryBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Floral</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientFloralBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Spicy</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientSpicyBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Smoky</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientSmokyBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="right" valign="center">Dry</td>
+				    <td align="left" valign="center" width="25">
+					<div id="ingredientDryBar" class="flavorBar" style="width: 0px"></div>
+				    </td>
+				</tr>
+			    </table>
+			</div>
+		    </div>
+		    <div id="ingredientDescBox" class="descBox"></div>
+		</div>
 	    </div>
-	    <div class="splitPaneBottom">
-		<div class="splitPaneBottomPart">
+	    <div class="splitPaneUnlocksRegion">
+		<div class="splitPaneUnlocksPart">
 		    <div>
 			Current Distributor:
 			<span id="curDistBox">None</span>
@@ -45,32 +109,49 @@
 			Distributors supply you with alcohol and other drink ingredients.
 		    </div>
 		</div>
-		<div class="splitPaneBottomPart">
+		<div class="splitPaneUnlocksPart">
 		    <div>
 			Next Distributor:
 			<span id="nextDistBox">Unknown</span>
 		    </div>
-		    <div class="progressBar" style="height: 7px; left: 0; right: 2px">
+		    <div class="progressBar splitBottomProgressBar">
 			<div id="distProgBar" class="progressBarFg" style="width: 0%"></div>
 		    </div>
-		    <div id="nextDistDescBox" class="descBox">
-			Sell more drinks to attract the attention of a better distributor.
-		    </div>
+		    <div id="nextDistDescBox" class="descBox"></div>
 		</div>
 	    </div>
 	</div>
 	<div id="drinksPane" class="mainPane splitPane" style="visibility: hidden">
-	    <div class="splitPaneTop">
-		left: drinks tree, group by (base spirit, style, source)<br>
-		right: recipe, cost, flavor profile, description
+	    <div class="splitPaneItemsRegion">
+		<div class="splitPaneItemsTreeRegion">
+		    Recipes:
+		    <div id="drinksTree" class="treeBox"></div>
+		    <div style="margin-top: 3px">
+			Group by
+			<select id="drinksGroupingBox">
+			    <option value="spirit">Spirit</option>
+			    <option value="style">Style</option>
+			    <option value="source">Source</option>
+			</select>
+		    </div>
+		</div>
+		<div class="splitPaneItemInfoRegion">
+		    name, recipe, cost, flavor profile, description
+		</div>
 	    </div>
-	    <div class="splitPaneBottom">
-		<div class="splitPaneBottomPart">
+	    <div class="splitPaneUnlocksRegion">
+		<div class="splitPaneUnlocksPart">
 		    owned cocktail references
 		</div>
-		<div class="splitPaneBottomPart">
-		    progress bar to next cocktail reference<br>
-		    if progress full: description of next reference and purchase button
+		<div class="splitPaneUnlocksPart">
+		    <div>
+			Next Reference:
+			<span id="nextRefBox">Unknown</span>
+		    </div>
+		    <div class="progressBar splitBottomProgressBar">
+			<div id="refProgBar" class="progressBarFg" style="width: 0%"></div>
+		    </div>
+		    <div id="nextRefDescBox" class="descBox"></div>
 		</div>
 	    </div>
 	</div>
@@ -78,17 +159,34 @@
 	    //bartenders, stocker(s)
 	</div>
 	<div id="locationsPane" class="mainPane splitPane" style="visibility: hidden">
-	    <div class="splitPaneTop">
-		left: venue improvements tree<br>
-		right: improvement price, owned / max, description
-	    </div>
-	    <div class="splitPaneBottom">
-		<div class="splitPaneBottomPart">
-		    current venue
+	    <div class="splitPaneItemsRegion">
+		<div class="splitPaneItemsTreeRegion">
+		    Venue Improvements:
+		    <div id="improvementsTree" class="treeBox"></div>
 		</div>
-		<div class="splitPaneBottomPart">
-		    progress to next venue<br>
-		    if progress full: description of next venue and purchase button
+		<div class="splitPaneItemInfoRegion">
+		    improvement name, price, owned / max, description
+		</div>
+	    </div>
+	    <div class="splitPaneUnlocksRegion">
+		<div class="splitPaneUnlocksPart">
+		    <div>
+			Current Venue:
+			<span id="curVenueBox">None</span>
+		    </div>
+		    <div id="curVenueDescBox" class="descBox">
+			This is where you sell your drinks.  Or it would be, if you had a place...
+		    </div>
+		</div>
+		<div class="splitPaneUnlocksPart">
+		    <div>
+			Next Venue:
+			<span id="nextVenueBox">Unknown</span>
+		    </div>
+		    <div class="progressBar splitBottomProgressBar">
+			<div id="venueProgBar" class="progressBarFg" style="width: 0%"></div>
+		    </div>
+		    <div id="nextVenueDescBox" class="descBox"></div>
 		</div>
 	    </div>
 	</div>
