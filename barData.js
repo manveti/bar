@@ -1,10 +1,12 @@
-var defaultDescs = {
+var DEFAULT_DESC = {
     'distributor':	"Sell more drinks to attract the attention of a better distributor.",
     'reference':	"Buying cocktail references will teach you new drinks, and may even inspire you.",
     'venue':		"Buying a nicer venue will improve your atmosphere and attract more discerning patrons.",
 };
 
-var ingredients = {
+var FLAVORS = ["sweet", "sour", "bitter", "savory", "floral", "spicy", "smoky", "dry"];
+
+var INGREDIENTS = {
     "Gin": {
 	//description
 	"London Dry": {
@@ -95,21 +97,148 @@ var ingredients = {
 	    //description
 	},
     },
-    //vodka (???)
-    //whiskey (bourbon, rye, scotch/japanese)
-    //liqueur (...)
-    //mixers (...)
+    "Vodka": {
+	//description
+	//???
+    },
+    "Whiskey": {
+	//description
+	"Bourbon": {
+	    //description
+	},
+	"Rye": {
+	    //description
+	},
+	"Scotch/Japanese": {
+	    //description
+	}
+    },
+    "Liqueurs": {
+	//description
+	//...
+    },
+    "Mixers": {
+	//description
+	"Carbonated": {
+	    //description
+	},
+	"Juices": {
+	    //description
+	},
+	"Syrups/Cordials": {
+	    //description
+	}
+    }
 };
 
-var cities = [
+var INGREDIENTS_SORTED = [
     {
-	'name': "Poe Dunk",
+	'name': "Gin",
+	'types': [
+	    "London Dry",
+	    "Genever",
+	    "Old Tom",
+	    "New American",
+	    "Sloe"
+	]
+    },
+    {
+	'name': "Rum",
+	'types': [
+	    "White",
+	    "Gold",
+	    "Aged",
+	    "Overproof",
+	    "Agricole",
+	    "Cachaça",
+	    "Spiced"
+	]
+    },
+    {
+	'name': "Agave",
+	'types': [
+	    "Tequila Blanco",
+	    "Tequila Reposado",
+	    "Tequila Añejo",
+	    "Mezcal"
+	]
+    },
+    {
+	'name': "Vodka",
+	'types': [
+	]
+    },
+    {
+	'name': "Whiskey",
+	'types': [
+	    "Bourbon",
+	    "Rye",
+	    "Scotch/Japanese"
+	]
+    },
+    {
+	'name': "Liqueurs",
+	'types': [
+	]
+    },
+    {
+	'name': "Mixers",
+	'types': [
+	    "Carbonated",
+	    "Juices",
+	    "Syrups/Cordials"
+	]
+    }
+];
+for (var i = 0; i < INGREDIENTS_SORTED.length; i++){
+    var spirit = INGREDIENTS_SORTED[i].name;
+    var spiritBrands = 0;
+    INGREDIENTS[spirit]['flavor'] = {};
+    for (var fa = 0; fa < FLAVORS.length; fa++){
+	INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] = 0;
+    }
+    for (var j = 0; j < INGREDIENTS_SORTED[i].types.length; j++){
+	var subtype = INGREDIENTS_SORTED[i].types[j];
+	INGREDIENTS[spirit][subtype]['flavor'] = {}
+	for (var fa = 0; fa < FLAVORS.length; fa++){
+	    INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] = 0;
+	}
+	var node = {'name': subtype, 'brands': []};
+	for (var name in INGREDIENTS[spirit][subtype]){
+	    if ((name == "description") || (name == "flavor")){ continue; }
+	    if (!INGREDIENTS[spirit][subtype].hasOwnProperty(name)){ continue; }
+	    node.brands.push(name);
+	    for (var fa = 0; fa < FLAVORS.length; fa++){
+		var amt = INGREDIENTS[spirit][subtype][name]['flavor'][FLAVORS[fa]];
+		INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] += amt;
+		INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] += amt;
+	    }
+	}
+	node.brands.sort((x, y) => INGREDIENTS[spirit][subtype][x].price - INGREDIENTS[spirit][subtype][y].price);
+	INGREDIENTS_SORTED[i].types[j] = node;
+	if (node.brands.length > 0){
+	    for (var fa = 0; fa < FLAVORS.length; fa++){
+		INGREDIENTS[spirit][subtype]['flavor'][FLAVORS[fa]] /= node.brands.length;
+	    }
+	    spiritBrands += node.brands.length;
+	}
+    }
+    if (spiritBrands > 0){
+	for (var fa = 0; fa < FLAVORS.length; fa++){
+	    INGREDIENTS[spirit]['flavor'][FLAVORS[fa]] /= spiritBrands;
+	}
+    }
+}
+
+var CITIES = [
+    {
+	'name': "Podunk",
 	//wealth factor (possibly other modifiers to potential customers)
 	'distributors': [
 	    {
 		'name': "Uncle Steve",
 		'unlock': 0,
-		'cost': 0,
+		'price': 0,
 		'factor': 2,
 		'description': "Your uncle Steve will run to the corner store and buy a few bottles for you, " +
 				"but you'll have to give him some gas money for the trip",
@@ -123,11 +252,15 @@ var cities = [
 	    }
 	],
 	//workers
-	//venues
+	'venues': [
+	    //...
+	],
     },
 ];
 
-var references = [
+var FINAL_MONEY_GOAL = 1e12;
+
+var REFERENCES = [
     {
 	'name': "Common Knowledge",
 	'cost': 0,
@@ -151,3 +284,17 @@ var references = [
 
 //perks
 //achievements
+
+var NEW_GAME_STATE = {
+    'money': 0,
+    //income
+    'stock': {},
+    'city': 0,
+    'venue': 0,
+    'distributor': 0,
+    //staff
+    'reference': 0,
+    //custom drinks
+    //perks
+    //achievements
+};

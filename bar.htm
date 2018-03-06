@@ -12,7 +12,7 @@
 	    Money: $<span id="moneyBox">0</span><br>
 	    <div class="progressBar" style="height: 20px; width: 200px">
 		<div id="moneyProgBar" class="progressBarFg" style="width: 0%"></div>
-		<div id="moneyProgText" class="progressBarText" style="line-height: 20px">$0 / $10,000</div>
+		<div id="moneyProgText" class="progressBarText" style="line-height: 20px">$0 / $0</div>
 	    </div>
 	    Income: $<span id="incomeBox">0</span>/sec
 	</div>
@@ -40,7 +40,28 @@
 		<div class="splitPaneItemInfoRegion">
 		    <div class="splitPaneItemDetailsRegion">
 			<span class="splitPaneItemTextDetails">
-			    name, price, owned, auto-stock checkbox (if available)
+			    <div id="ingredientNameBox" class="itemNameBox">Ingredient</div>
+			    <div>
+				Price: $<span id="ingredientPriceBox">0</span>
+			    </div>
+			    <div>
+				Owned: <span id="ingredientOwnedBox">0</span>
+				<span id="ingredientOpenBox" style="visibility: hidden">
+				    (plus an open bottle:
+				    <div class="progressBar inline" style="height: 9px; width: 25px">
+					<div id="ingredientOpenBar" class="progressBarFg" style="width: 100%"></div>
+				    </div>
+				    )
+				</span>
+			    </div>
+			    <div id="ingredientBuyRegion">
+				<span class="button">Buy 1</span>
+				<span class="button">Buy 10</span>
+			    </div>
+			    <div id="ingredientAutoStockRegion" style="visibility: hidden">
+				<input id="ingredientAutoStockBox" type="checkbox">
+				Auto-Stock
+			    </div>
 			</span>
 			<div>
 			    Flavor Profile
@@ -48,49 +69,49 @@
 				<tr>
 				    <td align="right" valign="center">Sweet</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientSweetBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientSweetBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Sour</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientSourBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientSourBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Bitter</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientBitterBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientBitterBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Savory</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientSavoryBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientSavoryBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Floral</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientFloralBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientFloralBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Spicy</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientSpicyBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientSpicyBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Smoky</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientSmokyBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientSmokyBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 				<tr>
 				    <td align="right" valign="center">Dry</td>
 				    <td align="left" valign="center" width="25">
-					<div id="ingredientDryBar" class="flavorBar" style="width: 0px"></div>
+					<div id="ingredientDryBar" class="flavorBar" style="width: 0%"></div>
 				    </td>
 				</tr>
 			    </table>
