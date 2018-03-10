@@ -268,7 +268,7 @@ var CITIES = [
 		    "Gin": {
 			"London Dry": [
 			    "Bathe & Tubbs'",
-			    //"Lakechart's",
+			    "Lakechart's",
 			],
 		    },
 		}
