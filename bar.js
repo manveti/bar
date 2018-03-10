@@ -177,18 +177,41 @@ function populateIngredientDetails(){
 	}
 	getEl('ingredientNameBox').innerHTML = itmName;
 	if ((game.curIngredient.subtype) && (game.curIngredient.brand)){
+	    var ing = game.curIngredient;
+	    var price = getIngredientPrice(ing.spirit, ing.subtype, ing.brand);
+	    if (price > 0){
+		getEl('ingredientPriceBox').innerHTML = `${price}`;
+		getEl('ingredientBuyRegion').style.visibility = "inherit";
 /////
 //
-	    getEl('ingredientPriceBox').innerHTML = "???"; //curItem.price * distributor factor
+		getEl('ingredientAutoStockRegion').style.visibility = "hidden"; //inherit if can auto-stock
+		getEl('ingredientAutoStockBox').checked = false; //true if auto-stocking
+//
+/////
+	    }
+	    else{
+		getEl('ingredientPriceBox').innerHTML = "n/a";
+		getEl('ingredientBuyRegion').style.visibility = "hidden";
+		getEl('ingredientAutoStockRegion').style.visibility = "hidden";
+		getEl('ingredientAutoStockBox').checked = false;
+	    }
 	    getEl('ingredientAbvBox').innerHTML = `${curItem.abv}%`;
-	    getEl('ingredientOwnedBox').innerHTML = "???"; //Math.floor(how many bottles owned)
-	    getEl('ingredientOpenBox').style.visibility = "inherit"; //hidden if owned is integer
-	    getEl('ingredientOpenBar').style.width="100%"; //fractional part of owned
-	    getEl('ingredientBuyRegion').style.visibility = "inherit"; //hidden if distributor doesn't sell
-	    getEl('ingredientAutoStockRegion').style.visibility = "hidden"; //inherit if can auto-stock
-	    getEl('ingredientAutoStockBox').checked = false; //true if auto-stocking
-//
-/////
+	    var owned = 0;
+	    if ((game.stock) && (game.stock[ing.spirit]) && (game.stock[ing.spirit][ing.subtype]) &&
+		    (game.stock[ing.spirit][ing.subtype][ing.brand])){
+		owned = game.stock[ing.spirit][ing.subtype][ing.brand];
+	    }
+	    var ownedFull = Math.floor(owned);
+	    owned -= ownedFull;
+	    getEl('ingredientOwnedBox').innerHTML = `${ownedFull}`;
+	    if (owned > 0){
+		getEl('ingredientOpenBox').style.visibility = "inherit";
+		getEl('ingredientOpenBar').style.width = `${owned * 100}%`;
+	    }
+	    else{
+		getEl('ingredientOpenBox').style.visibility = "hidden";
+		getEl('ingredientOpenBar').style.width = "0%";
+	    }
 	}
 	else{
 	    getEl('ingredientPriceBox').innerHTML = "n/a";
@@ -287,6 +310,17 @@ function showGame(){
     populateOptionsPane();
 }
 
+
+function getIngredientPrice(spirit, subtype, brand){
+    for (var i = game.distributor; i >= 0; i--){
+	var dist = CITIES[game.city].distributors[i];
+	if ((dist.stock) && (dist.stock[spirit]) && (dist.stock[spirit][subtype]) &&
+		(dist.stock[spirit][subtype].includes(brand))){
+	    return INGREDIENTS[spirit][subtype][brand].price * dist.factor;
+	}
+    }
+    return null;
+}
 
 function updateDistributor(populate){
     //figure out new ingredients tree based on game.distributor

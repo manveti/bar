@@ -8,7 +8,9 @@ var FLAVORS = ["sweet", "sour", "bitter", "savory", "floral", "spicy", "smoky", 
 
 var INGREDIENTS = {
     "Gin": {
-	//description
+	'description': "Gin is manufactured by infusing a neutral spirit with juniper berries and other " +
+			"botanicals.  It is a clear spirit with a clean flavor and herby overtones.  " +
+			"If you've ever wanted to drink a Christmas tree, now's your chance.",
 	"London Dry": {
 	    'description': "If you've only ever tasted one style of gin, this is the style you've tasted",
 	    "Bathe & Tubbs'": {
@@ -39,7 +41,7 @@ var INGREDIENTS = {
 		    'floral': .2,
 		    'spicy': 0,
 		    'smoky': 0,
-		    'dry': .1
+		    'dry': .5
 		},
 		'abv': 40,
 		//description
@@ -265,7 +267,8 @@ var CITIES = [
 		'stock': {
 		    "Gin": {
 			"London Dry": [
-			    "Lakechart's",
+			    "Bathe & Tubbs'",
+			    //"Lakechart's",
 			],
 		    },
 		}
@@ -284,22 +287,23 @@ var REFERENCES = [
     {
 	'name': "Common Knowledge",
 	'cost': 0,
+	'unlock': 0,
 	'description': "Everyone knows this stuff...",
 	'drinks': {
 	    'built': {
 		"Shot": {
 		    'recipe': [
 			{
-			    'ingredient': ["Gin"],
+			    'ingredient': ["Gin", "Rum", "Agave", "Vodka", "Whiskey"],
 			    'amount':	1
 			},
 		    ],
 		    'description': "Pour contents of bottle into glass. Pour contents of glass into mouth. " +
-				    "Repeat until unconscious"
+				    "Repeat until unconscious."
 		},
 	    },
 	}
-    }
+    },
 ];
 
 //perks
